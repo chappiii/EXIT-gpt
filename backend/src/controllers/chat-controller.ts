@@ -3,8 +3,12 @@ import User from "../models/User.js";
 import { configureOpenAI } from "../config/openai-config.js";
 import { OpenAIApi, ChatCompletionRequestMessage } from "openai";
 
-export const generateChatCompletion = async (res: Response, req: Request, next: NextFunction) => {
-    const { message } = req.body;
+export const generateChatCompletion = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { message } = req.body;
   try {
     const user = await User.findById(res.locals.jwtData.id);
     if (!user)
