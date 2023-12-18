@@ -65,3 +65,12 @@ export const logoutUser = async () => {
   const data = await res.data;
   return data;
 };
+
+export const getAllQuestions = async () => {
+  const res = await axios.get("/questions");
+  if (res.status !== 200) {
+    throw new Error("Unable to get questions");
+  }
+  const data = await res.data;
+  return data;
+};

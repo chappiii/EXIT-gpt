@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
 import { useAuth } from "./context/AuthContext";
+import Questions from "./pages/Questions";
 // import Footer from "./components/footer/Footer";
 function App() {
   const auth = useAuth();
@@ -21,6 +22,7 @@ function App() {
         {auth?.isLoggedIn && auth.user && (
           <Route path="/chat" element={<Chat />} />
         )}
+        <Route path="/questions" element={<Questions />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
