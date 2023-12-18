@@ -18,4 +18,5 @@ const QuestionSchema = new mongoose.Schema({
             type: String, 
         },
     })
+    
 export default mongoose.model("Question", QuestionSchema);
