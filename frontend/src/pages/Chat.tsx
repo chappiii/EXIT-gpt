@@ -166,7 +166,7 @@ const Chat = () => {
           }}
         >
           {chatMessages.map((chat, index) => (
-            //@ts-ignore
+            //@ts-expect-error
             <ChatItem content={chat.content} role={chat.role} key={index} />
           ))}
         </Box>
