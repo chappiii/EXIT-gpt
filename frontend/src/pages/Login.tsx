@@ -24,7 +24,7 @@ const Login = () => {
   };
   useEffect(() => {
     if (auth?.user) {
-      return navigate("/chat");
+      return navigate("/");
     }
   }, [auth]);
   return (

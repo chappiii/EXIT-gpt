@@ -30,8 +30,8 @@ const Home = () => {
           }}
         >
           <img
-            src="exitmodel.PNG"
-            alt="model"
+            src="moe.png"
+            alt="moe"
             style={{ width: "200px", margin: "auto" }}
           />
           <img

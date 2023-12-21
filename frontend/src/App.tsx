@@ -7,6 +7,9 @@ import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
 import { useAuth } from "./context/AuthContext";
 import Questions from "./pages/Questions";
+import Pdf from "./pages/Pdf";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 // import Footer from "./components/footer/Footer";
 function App() {
   const auth = useAuth();
@@ -22,7 +25,14 @@ function App() {
         {auth?.isLoggedIn && auth.user && (
           <Route path="/chat" element={<Chat />} />
         )}
-        <Route path="/questions" element={<Questions />} />
+        {auth?.isLoggedIn && auth.user && (
+          <Route path="/questions" element={<Questions />} />
+        )}
+        {auth?.isLoggedIn && auth.user && (
+          <Route path="/pdf" element={<Pdf />} />
+        )}
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
