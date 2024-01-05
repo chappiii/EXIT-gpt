@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
+import { Document, pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -22,7 +22,6 @@ const Pdf: React.FC = () => {
         const page = await pdfDocument.getPage(pageNumber);
         const textContent = await page.getTextContent();
 
-        // Here's where you apply the solution
         const pageText = textContent.items
           .map((item) => {
             if ("str" in item) {
@@ -43,7 +42,7 @@ const Pdf: React.FC = () => {
       <p>{text}</p>
       {file && (
         <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
-          <Page pageNumber={1} renderMode="none" />
+          {/* <Page pageNumber={0} renderMode="none" /> */}
         </Document>
       )}
     </div>

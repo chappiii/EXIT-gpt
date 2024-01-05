@@ -22,15 +22,18 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        {auth?.isLoggedIn && auth.user && (
-          <Route path="/chat" element={<Chat />} />
-        )}
-        {auth?.isLoggedIn && auth.user && (
-          <Route path="/questions" element={<Questions />} />
-        )}
-        {auth?.isLoggedIn && auth.user && (
-          <Route path="/pdf" element={<Pdf />} />
-        )}
+        <Route
+          path="/chat"
+          element={auth?.isLoggedIn && auth.user ? <Chat /> : <Login />}
+        />
+        <Route
+          path="/questions"
+          element={auth?.isLoggedIn && auth.user ? <Questions /> : <Login />}
+        />
+        <Route
+          path="/pdf"
+          element={auth?.isLoggedIn && auth.user ? <Pdf /> : <Login />}
+        />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
