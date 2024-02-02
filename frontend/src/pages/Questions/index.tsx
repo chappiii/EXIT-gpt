@@ -1,7 +1,8 @@
 import { useLayoutEffect, useState } from "react";
-import { getAllQuestions } from "../helpers/api-communicator";
-import { useAuth } from "../context/AuthContext";
+import { getAllQuestions } from "../../helpers/api-communicator";
+import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
+import Questions from "./Questions";
 
 // Define an interface for the question
 interface Question {
@@ -11,7 +12,7 @@ interface Question {
   correctAnswer: string;
 }
 
-function Questions() {
+function Index() {
   const auth = useAuth();
   const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -34,7 +35,7 @@ function Questions() {
 
   return (
     <>
-      <div className="text-white">
+      {/* <div className="text-white">
         {questions.map((question) => (
           <div key={question._id}>
             <h3>{question.question}</h3>
@@ -46,9 +47,10 @@ function Questions() {
             <p>Correct Answer: {question.correctAnswer}</p>
           </div>
         ))}
-      </div>
+      </div> */}
+      <Questions />
     </>
   );
 }
 
-export default Questions;
+export default Index;
