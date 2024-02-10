@@ -110,8 +110,8 @@ const Chat = () => {
             You are talking to a ChatBOT
           </Typography>
           <Typography sx={{ mx: "auto", fontFamily: "work sans", my: 4, p: 3 }}>
-            You can ask some questions related to Knowledge, Business, Advices,
-            Education, etc. But avoid sharing personal information
+            You can ask some questions related to your exam and any course you
+            want
           </Typography>
           <Button
             onClick={handleDeleteChats}
