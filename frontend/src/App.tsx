@@ -6,7 +6,7 @@ import Signup from "./pages/Signup";
 import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
 import { useAuth } from "./context/AuthContext";
-import Questions from "./pages/Questions";
+import Questions from "./pages/Questions/Questions";
 import Pdf from "./pages/Pdf";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
