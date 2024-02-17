@@ -37,7 +37,3 @@ body {
     transform: rotate(359deg);
   }
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

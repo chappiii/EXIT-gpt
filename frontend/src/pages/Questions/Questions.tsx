@@ -26,6 +26,7 @@ const Questions: React.FC = () => {
   const auth = useAuth();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<number>(1);
+  const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
 
   useEffect(() => {
     if (auth?.isLoggedIn && auth?.user) {
@@ -42,10 +43,19 @@ const Questions: React.FC = () => {
     }
   }, [auth?.isLoggedIn, auth?.user]);
 
+  // const handleAnswerSubmit = (questionId: string, chosenAnswerId?: string) => {
+  //   console.log(`Answer submitted for question ${questionId}: ${chosenAnswerId}`);
+  //   // Implement your answer submission logic here
+  // };
   const handleAnswerSubmit = (questionId: string, chosenAnswerId?: string) => {
+    const question = questions.find(q => q.id === questionId);
+    if (question && chosenAnswerId === question.correctAnswer) {
+        setCorrectAnswersCount(prevCount => prevCount + 1);
+    }
     console.log(`Answer submitted for question ${questionId}: ${chosenAnswerId}`);
-    // Implement your answer submission logic here
-  };
+    // Additional actions after submitting the answer, if any.
+};
+
 
   const handlePrevQuestion = () => {
     setCurrentQuestion((prev) => Math.max(prev - 1, 1));
@@ -61,19 +71,19 @@ const Questions: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start px-6 py-2">
+    <div className="flex flex-col items-center bg-white h-screen justify-start px-6 py-2">
       <div className="flex items-center justify-center space-x-4 my-4">
         <Timer totalTime={1200} onTimeExpired={handleEndExam} />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-6 gap-6 w-full">
-        <div className="max-w-sm p-2   bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="grid grid-cols-1 lg:grid-cols-10 gap-4  w-full">
+        <div className="max-w-sm p-2 ">
           {questions[currentQuestion - 1]?.flagged ? (
             <FlaggedQuestionDisplay
               question={questions[currentQuestion - 1]}
               onAnswerSelected={handleAnswerSubmit}
             />
           ) : (
-            <div className="lg:col-span-1 py-2 ">
+            <div className="lg:col-span-2 py-6 mt-12 items-center justify-center ">
               <ProgressBar 
                 progress={currentQuestion}
                 totalSteps={questions.length}
@@ -86,20 +96,22 @@ const Questions: React.FC = () => {
           )}
         </div>
         {questions.length > 0 && (
-          <div className="lg:col-span-3 p-6s bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div className="lg:col-span-6 p-2">
             <QuestionDisplay
               question={questions[currentQuestion - 1]}
               onAnswerSelected={handleAnswerSubmit}
             />
           </div>
         )}
-        <div className="lg:col-span-2 max-w-sm p-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <QuestionNavigation
-            totalQuestions={questions.length}
-            currentQuestion={currentQuestion}
-            onSelectQuestion={(questionNumber) => setCurrentQuestion(questionNumber)}
-            onFinishAttempt={handleEndExam}
-          />
+        <div className="lg:col-span-3 max-w-sm p-2 ">
+        <QuestionNavigation
+    totalQuestions={questions.length}
+    currentQuestion={currentQuestion}
+    correctAnswersCount={correctAnswersCount} // Pass the state here
+    onSelectQuestion={(questionNumber) => setCurrentQuestion(questionNumber)}
+    onFinishAttempt={handleEndExam}
+/>
+
         </div>
       </div>
       <Navigation
