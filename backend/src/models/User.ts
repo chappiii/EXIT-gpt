@@ -16,6 +16,21 @@ const chatSchema = new mongoose.Schema({
     }
 });
 
+const pdfChatSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        default: randomUUID()
+    },
+    role: {
+        type: String,
+        required:true,
+    },
+    content: {
+        type: String,
+        required:true,
+    }
+});
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -31,6 +46,7 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     chats: [chatSchema],
+    pdfChats: [pdfChatSchema],
 });
 
 export default mongoose.model("User", userSchema);

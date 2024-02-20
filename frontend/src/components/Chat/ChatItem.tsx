@@ -40,7 +40,7 @@ const ChatItem = ({
       sx={{
         display: "flex",
         p: 2,
-        bgcolor: "#004d5612",
+        bgcolor: "#000000",
         gap: 2,
         borderRadius: 2,
         my: 1,

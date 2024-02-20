@@ -5,7 +5,7 @@ const TypingAnim = () => {
     <TypeAnimation
       sequence={[
         // Same substring at the start will only be typed once, initially
-        "Study With OWN AI 🤖",
+        "Study With Your OWN AI 🤖",
         2000,
         "More than 500 Model questions",
         1500,

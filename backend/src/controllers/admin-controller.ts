@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from "express";
-import User from "../models/User.js"
+import Admin from "../models/admin.js";
 import { hash, compare } from "bcrypt";
 import { createToken } from "../utils/token-manager.js";
 import { COOKIE_NAME } from "../utils/constants.js";
 
-export const getAllUsers = async (req:Request, res:Response, next: NextFunction)=> {
+export const getAllAdmins = async (req:Request, res:Response, next: NextFunction)=> {
     try {
-        //get all Users
-        const users =  await User.find();
+        //get all Admins
+        const users =  await Admin.find();
         return res.status(200).json({message: "OK", users })
     } catch (error) {
         console.log(error)
@@ -15,15 +15,15 @@ export const getAllUsers = async (req:Request, res:Response, next: NextFunction)
     }
 }
 
-export const userSignup = async (req:Request, res:Response, next: NextFunction)=> {
+export const adminSignup = async (req:Request, res:Response, next: NextFunction)=> {
     try {
-        // User signup
+        // Admin signup
         const {name, email, password} = req.body;
-        const existingUser = await User.findOne({ email });
-        if (existingUser) return res.status(401).send("user already exists")
+        const existingAdmin = await Admin.findOne({ email });
+        if (existingAdmin) return res.status(401).send("admin already exists")
         const hashedPassword = await hash(password, 10);
-        const user =  new User({ name, email, password: hashedPassword });
-        await user.save();
+        const admin =  new Admin({ name, email, password: hashedPassword });
+        await admin.save();
 
         // create token and store cookie
         res.clearCookie(COOKIE_NAME, {
@@ -33,7 +33,7 @@ export const userSignup = async (req:Request, res:Response, next: NextFunction)=
             signed: true
         })
 
-        const token = createToken(user._id.toString(), user.email, "7d");
+        const token = createToken(admin._id.toString(), admin.email, "7d");
         const expires = new Date()
         expires.setDate(expires.getDate() + 7)
         res.cookie(COOKIE_NAME, token, {
@@ -44,7 +44,7 @@ export const userSignup = async (req:Request, res:Response, next: NextFunction)=
             signed: true
         });
 
-        return res.status(201).json({message: "OK", name: user.name, email: user.email  })
+        return res.status(201).json({message: "OK", name: admin.name, email: admin.email  })
     } catch (error) {
         console.log(error)
         return res.status(201).json({message: "ERROR", cause: error.message })
@@ -52,15 +52,15 @@ export const userSignup = async (req:Request, res:Response, next: NextFunction)=
 }
 
 
-export const userLogin = async (req:Request, res:Response, next: NextFunction)=> {
+export const adminLogin = async (req:Request, res:Response, next: NextFunction)=> {
     try {
-        // User login
+        // Admin login
         const { email, password} = req.body;
-        const user = await User.findOne({ email });
-        if (!user){
-            return res.status(401).send("user not found ")
+        const admin = await Admin.findOne({ email });
+        if (!admin){
+            return res.status(401).send("admin not found ")
         }
-        const isPasswordCorrect = await compare(password, user.password);
+        const isPasswordCorrect = await compare(password, admin.password);
         if (!isPasswordCorrect){
             return res.status(403).send("Incorrect password")
         }
@@ -73,7 +73,7 @@ export const userLogin = async (req:Request, res:Response, next: NextFunction)=>
             signed: true
         })
 
-        const token = createToken(user._id.toString(), user.email, "7d");
+        const token = createToken(admin._id.toString(), admin.email, "7d");
         const expires = new Date()
         expires.setDate(expires.getDate() + 7)
         res.cookie(COOKIE_NAME, token, {
@@ -86,48 +86,48 @@ export const userLogin = async (req:Request, res:Response, next: NextFunction)=>
 
 
 
-        return res.status(200).json({message: "OK", name: user.name, email: user.email  })
+        return res.status(200).json({message: "OK", name: admin.name, email: admin.email  })
     } catch (error) {
         console.log(error)
         return res.status(201).json({message: "ERROR", cause: error.message })
     }
 }
 
-export const verifyUser = async (
+export const verifyAdmin = async (
     req: Request,
       res: Response,
     next: NextFunction
   ) => {
     try {
       //user token check
-      const user = await User.findById(res.locals.jwtData.id);
-      if (!user) {
-        return res.status(401).send("User not registered OR Token malfunctioned");
+      const admin = await Admin.findById(res.locals.jwtData.id);
+      if (!admin) {
+        return res.status(401).send("admin not registered OR Token malfunctioned");
       }
-      if (user._id.toString() !== res.locals.jwtData.id) {
+      if (admin._id.toString() !== res.locals.jwtData.id) {
         return res.status(401).send("Permissions didn't match");
       }
       return res
         .status(200)
-        .json({ message: "OK", name: user.name, email: user.email });
+        .json({ message: "OK", name: admin.name, email: admin.email });
     } catch (error) {
       console.log(error);
       return res.status(200).json({ message: "ERROR", cause: error.message });
     }
   };
   
-  export const userLogout = async (
+  export const adminLogout = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     try {
       //user token check
-      const user = await User.findById(res.locals.jwtData.id);
-      if (!user) {
-        return res.status(401).send("User not registered OR Token malfunctioned");
+      const admin = await Admin.findById(res.locals.jwtData.id);
+      if (!admin) {
+        return res.status(401).send("admin not registered OR Token malfunctioned");
       }
-      if (user._id.toString() !== res.locals.jwtData.id) {
+      if (admin._id.toString() !== res.locals.jwtData.id) {
         return res.status(401).send("Permissions didn't match");
       }
   
@@ -140,27 +140,9 @@ export const verifyUser = async (
   
       return res
         .status(200)
-        .json({ message: "OK", name: user.name, email: user.email });
+        .json({ message: "OK", name: admin.name, email: admin.email });
     } catch (error) {
       console.log(error);
       return res.status(200).json({ message: "ERROR", cause: error.message });
     }
   };
-
-  export const deleteUserByEmail = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { email } = req.params; // Access the email sent as a URL parameter
-        const user = await User.findOne({ email });
-
-        if (!user) {
-            return res.status(404).json({ message: "User not found" }); // No user found with the given email
-        }
-
-        await User.deleteOne({ email }); // Delete the user
-
-        return res.status(200).json({ message: "User deleted successfully" });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({ message: "ERROR", cause: error.message }); // Use 500 for server errors
-    }
-};

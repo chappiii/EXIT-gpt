@@ -24,7 +24,11 @@ const Header = () => {
   return (
     <AppBar
       className="pt-4"
-      sx={{ bgcolor: "transparent", position: "static", boxShadow: "none" }}
+      sx={{
+        bgcolor: "transparent",
+        position: "static",
+        boxShadow: "none",
+      }}
     >
       <Toolbar sx={{ display: "flex" }}>
         <Logo />
@@ -43,13 +47,13 @@ const Header = () => {
               <Link to="/chat" className="nav-link">
                 Go To Chat
               </Link>
-              <Link to="/about" className="nav-link">
+              {/* <Link to="/about" className="nav-link">
                 about
               </Link>
 
               <Link to="/contact" className="nav-link">
                 contact
-              </Link>
+              </Link> */}
               {/* <NavigationLink
                 bg="#51538f"
                 textColor="white"
@@ -84,7 +88,6 @@ const Header = () => {
                   },
                 }}
               >
-                <MenuItem onClick={handleClose}>Edit Profile</MenuItem>
                 <MenuItem
                   onClick={() => {
                     handleClose();
@@ -97,12 +100,12 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link to="/about" className="nav-link">
+              {/* <Link to="/about" className="nav-link">
                 about
               </Link>
               <Link to="/contact" className="nav-link">
                 contact
-              </Link>
+              </Link> */}
               <NavigationLink
                 bg="#00fffc"
                 to="/login"

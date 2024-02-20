@@ -1,28 +1,10 @@
-import { Link } from "react-router-dom";
-
 const Footer = () => {
   return (
-    <footer>
-      <div
-        style={{
-          width: "100%",
-          minHeight: "20vh",
-          maxHeight: "30vh",
-          marginTop: 60,
-        }}
-      >
-        <p style={{ fontSize: "30px", textAlign: "center", padding: "20px" }}>
-          Built With love by
-          <span>
-            <Link
-              style={{ color: "white" }}
-              className="nav-link"
-              to={"https://github.com/chappiii"}
-            >
-              Chappiii
-            </Link>
-          </span>
-          💘
+    <footer className=" text-white mt-12">
+      <div className="container mx-auto px-4 py-12">
+        <p className="text-center text-lg md:text-xl lg:text-2xl font-semibold">
+          © {new Date().getFullYear()} All rights reserved to
+          <span className="text-blue-500 ml-2">Dire Dawa University</span>
         </p>
       </div>
     </footer>

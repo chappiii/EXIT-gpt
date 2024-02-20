@@ -30,3 +30,7 @@ export const signupValidator =[
 export const chatCompletionValidator =[
     body("message").notEmpty().withMessage("message is required"),
 ]
+
+export const pdfQuestionRequestValidator = [
+    body("message").trim().notEmpty().withMessage("Text for generating questions is required."),
+];
