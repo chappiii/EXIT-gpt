@@ -1,4 +1,6 @@
-import { useDashboard } from "../../context/dashboardcontext";
+// import { useDashboard } from "../../context/dashboardcontext";
+import { DashboardProvider, useDashboard } from "../../context/DashboardContext";
+
 
 function Dashboard() {
   const { questionCount, userCount } = useDashboard();

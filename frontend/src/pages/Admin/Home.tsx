@@ -3,7 +3,10 @@ import Header from "./Header";
 import Dashboard from "./Dashboard";
 import Users from "./Users";
 import Questions from "./Questions";
-import { DashboardProvider } from "../../context/dashboardcontext";
+// import { DashboardProvider } from "../../context/DashboardContext";
+import { DashboardProvider, useDashboard } from "../../context/DashboardContext";
+
+
 
 function Home() {
   // State to track the current active component
